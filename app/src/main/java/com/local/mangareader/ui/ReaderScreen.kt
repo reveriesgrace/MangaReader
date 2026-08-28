@@ -1,6 +1,5 @@
 package com.local.mangareader.ui
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -34,6 +33,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.milliseconds
 
 enum class ReaderMode {
     VERTICAL, HORIZONTAL, SELECTOR
@@ -297,14 +297,14 @@ private fun VerticalReader(
 ) {
     var canSave by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
-        kotlinx.coroutines.delay(1000)
+        kotlinx.coroutines.delay(1000.milliseconds)
         canSave = true
     }
 
     LaunchedEffect(listState) {
         snapshotFlow { listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset }
             .distinctUntilChanged()
-            .debounce(1000)
+            .debounce(1000.milliseconds)
             .collectLatest { (idx, offset) -> 
                 if (idx < pages.size && canSave) {
                     onVisiblePage(idx, offset) 

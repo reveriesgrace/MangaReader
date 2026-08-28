@@ -13,6 +13,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.core.net.toUri
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -102,7 +103,7 @@ fun AppNavHost(repository: MangaRepository, progressStore: ProgressStore) {
         progressStore.rootUriFlow().collect { saved ->
             if (saved != null && mangaList.isEmpty() && !isScanning) {
                 try {
-                    val uri = Uri.parse(saved)
+                    val uri = saved.toUri()
                     Log.d("MainActivity", "Restoring URI: $uri")
                     isScanning = true
                     mangaList = repository.scanLibrary(uri)

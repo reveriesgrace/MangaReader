@@ -56,7 +56,7 @@ class MangaRepository(private val context: Context) {
             
             val mangaFolders = allFiles.filter { it.isDirectory }
 
-            mangaFolders.mapNotNull { mangaDir ->
+            mangaFolders.asSequence().mapNotNull { mangaDir ->
                 try {
                     val volumes = scanManga(mangaDir)
                     if (volumes.isEmpty()) {
@@ -69,7 +69,7 @@ class MangaRepository(private val context: Context) {
                     Log.e("MangaRepository", "Error scanning manga folder ${mangaDir.name}", e)
                     null
                 }
-            }.sortedBy { it.name.lowercase() }
+            }.sortedBy { it.name.lowercase() }.toList()
         } catch (e: Exception) {
             Log.e("MangaRepository", "Critical error scanning library", e)
             emptyList()

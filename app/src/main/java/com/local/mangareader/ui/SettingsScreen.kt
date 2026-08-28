@@ -32,9 +32,9 @@ fun SettingsScreen(
             Text("Тема додатка", style = MaterialTheme.typography.titleMedium)
             Spacer(Modifier.height(16.dp))
             
-            ThemeOption("Системна", "system", currentTheme == "system") { onThemeChanged("system") }
-            ThemeOption("Світла", "light", currentTheme == "light") { onThemeChanged("light") }
-            ThemeOption("Темна", "dark", currentTheme == "dark") { onThemeChanged("dark") }
+            ThemeOption("Системна", currentTheme == "system") { onThemeChanged("system") }
+            ThemeOption("Світла", currentTheme == "light") { onThemeChanged("light") }
+            ThemeOption("Темна", currentTheme == "dark") { onThemeChanged("dark") }
         }
     }
 }
@@ -42,7 +42,6 @@ fun SettingsScreen(
 @Composable
 private fun ThemeOption(
     label: String,
-    value: String,
     selected: Boolean,
     onClick: () -> Unit
 ) {

@@ -36,7 +36,7 @@ fun MangaDetailScreen(
         LazyColumn(Modifier.padding(padding).fillMaxSize()) {
             if (lastRead != null) {
                 item {
-                    val (volName, chapNum, pageIdx) = lastRead
+                    val (_, chapNum, pageIdx) = lastRead
                     Button(
                         onClick = {
                             val (_, chapNum, pageIdx) = lastRead
